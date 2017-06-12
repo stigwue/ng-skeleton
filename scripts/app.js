@@ -7,13 +7,11 @@
         'toastr',
         'ui.bootstrap',
         'angular-loading-bar',
-        'angular-websocket',
 
         //more in use factories
         'http',
         'status',
-        'application',
-        'websocket'
+        'application'
 
     ]);
 })();
