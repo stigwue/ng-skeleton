@@ -1,2 +1,5 @@
 
-.grid-item { width: 200px; }
+.dash-grid {
+  text-align: center;
+  padding-bottom: 15px;
+}

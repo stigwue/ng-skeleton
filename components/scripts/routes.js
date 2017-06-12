@@ -38,7 +38,7 @@
 
         //routes that have child states
         [
-            'dashboard'
+            'more'
         ].forEach(function(route){
             return parentRoutes(route);
         });
@@ -68,8 +68,8 @@
 
 
         [
-            {state:'dashboard.index', url:'',templateUrl:'components/views/dashboard/index.html'},
-            {state:'dashboard.logs', url:'/logs',templateUrl:'components/views/dashboard/log.html'},
+            {state:'more.one', url:'',templateUrl:'components/views/more/1.html'},
+            {state:'more.two', url:'/more2',templateUrl:'components/views/more/2.html'},
 
         ].forEach(function(route){
             return parentchildRoutes(route);
