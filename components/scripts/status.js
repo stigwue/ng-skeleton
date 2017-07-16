@@ -23,20 +23,20 @@
       }
 
       function setUser(id) {
-        saveInCookie('printon_user', id);
+        saveInCookie('ngskeleton_user', id);
         return id;
       }
 
       function getUser() {
-        return readFromCookie('printon_user');
+        return readFromCookie('ngskeleton_user');
       }
 
       function setSession(id) {
-        saveInCookie('printon_session', id);
+        saveInCookie('ngskeleton_session', id);
         return id;
       }
       function getSession() {
-        return readFromCookie('printon_session');
+        return readFromCookie('ngskeleton_session');
       }
   }
 

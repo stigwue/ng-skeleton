@@ -22,7 +22,7 @@
       function buildRequest(method, url, data)
       {
           //set the url base here
-          var BASE = 'http://some_java_spring_api/';
+          var BASE = 'http://some_api/';
 
           var request = {
             method: method.toUpperCase(), //POST, GET, etc
