@@ -2,135 +2,73 @@
 //Gulp dependencies
 ///////////////////////////////////////////////////
 var gulp = require('gulp'),
-    config = require('./gulpfile.config')(),
-    $ = require('gulp-load-plugins')(),
-    del = require('del')
-    jshint = require('jshint'),
-    mainBowerFiles = require('main-bower-files')
+    gutil = require('gulp-util'),
+    sass = require('gulp-sass'),
+    connect = require('gulp-connect'),
+    uglify = require('gulp-uglify'),
+    concat = require('gulp-concat'),
     browserSync = require('browser-sync').create();
 
+    /* PS: gulp-connect is an alternative server for browser-sync */
 
-///////////////////////////////////////////////////
-//Watch task
-///////////////////////////////////////////////////
-gulp.task('vet', function(){
-    console.log('vetting Javascript');
-    return gulp
-    .src(config.js)
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
+var jsSources = ['components/scripts/*.js'],
+    sassSources = ['**/*.scss'],
+    mainSassSource = ['styles/scss/bootstrap.scss'],
+    htmlSources = ['**/*.html'],
+    outputDir = 'dev';
 
+
+gulp.task('log', function() {
+  gutil.log('== ng-skeleton gulp task ==')
 });
+
+gulp.task('compile-sass', function() {
+  gulp.src(mainSassSource)
+  .pipe(sass({style: 'expanded'}))
+    .on('error', gutil.log)
+  .pipe(gulp.dest('assets/css'))
+  // .pipe(connect.reload())
+});
+
+gulp.task('compile-js', function() {
+  gulp.src(jsSources)
+  // .pipe(uglify())
+  .pipe(concat('ngskeleton.js'))
+  .pipe(gulp.dest(outputDir))
+  // .pipe(connect.reload())
+});
+
+gulp.task('compile-html', function() {
+  gulp.src(htmlSources)
+  // .pipe(connect.reload())
+});
+
+gulp.task('watch', function() {
+  // gulp.watch(coffeeSources, ['coffee']);
+  gulp.watch(jsSources, ['compile-js', 'reload-html']);
+  gulp.watch(sassSources, ['compile-sass', 'reload-html']);
+  gulp.watch(htmlSources, ['compile-html', 'reload-html']);
+});
+
+// gulp.task('connect', function() {
+//   connect.server({
+//     root: '.',
+//     livereload: true
+//   })
+// });
 
 gulp.task('reload-html', function(){
   browserSync.reload();
-
 });
 
-gulp.task('watch-app', function(){
-    gulp.watch(config.js, ['vet', 'amalgamateJs']);
-    //gulp.watch(config.sass, ['compile-sass']);
-    gulp.watch(config.html, ['reload-html'])
-
-})
-
-///////////////////////////////////////////////////
-//Compile Sass and minify
-///////////////////////////////////////////////////
-
-gulp.task('compile-sass', function(){
-  console.log('compiling sass');
-    return gulp
-    .src(config.sass)
-    .pipe($.sass({outputStyle: 'compressed'}))
-    .pipe($.rename({suffix:'.min'}))
-    .pipe(gulp.dest(config.dev.css))
-    .pipe(browserSync.reload({
-      stream: true
-    }));
-
+gulp.task('serve', ['compile-html', 'compile-js', 'compile-sass', 'watch'], function(){
+	startBrowserSync();
 });
-
-
-
-///////////////////////////////////////////////////
-//Uglify Javascript
-///////////////////////////////////////////////////
-
-//concatenate and uglify
-
-gulp.task('amalgamateJs', function(){
-    console.log('concatenating Javascript');
-    console.log(config.js);
-    return gulp
-    .src(config.js)
-    .pipe($.concat('ngskeleton.js'))
-    .pipe($.rename({suffix:'.min'}))
-    //.pipe($.uglify())
-    .pipe(gulp.dest(config.dev.app));
-})
-
-///////////////////////////////////////////////////
-//minify Css
-///////////////////////////////////////////////////
-
-
-
-///////////////////////////////////////////////////
-//Inject Javascript
-///////////////////////////////////////////////////
-gulp.task('inject', function() {
-    console.log('Injecting custom scripts to index.html');
-    //console.log(config.appJs);
-
-    return gulp
-        .src(config.index)
-        .pipe($.inject(gulp.src([config.dev.app_js, config.css]), {relative: true}) )
-        .pipe(gulp.dest(config.base));
-});
-
-
-
-///////////////////////////////////////////////////
-//Start Browser sync
-///////////////////////////////////////////////////
-
-
-gulp.task('start', function(){
-    console.log(config.pre_dist);
-    return
-    gulp.src(config.pre_dist)
-    .pipe(gulp.dest(config.dest_dist));
-
-});
-
-gulp.task('serve', [/*'compile-sass', */'amalgamateJs', 'inject', 'watch-app'], function() {
-    startBrowserSync();
-});
-
-gulp.task('serve-dist', function() {
-
-});
-
 
 var startBrowserSync = function(){
     browserSync.init({
         server:{
-            baseDir: config.source
+            baseDir: '.'
         }
     });
 }
-
-
-
-
-///////////////////////////////////////////////////
-//Create distribution
-///////////////////////////////////////////////////
-
-//concatenate,  uglify/minify copy all to new dist directory
-
-//////////////////////////////////////////////////
-//Copy to dist
-///////////////////////////////////////////////////

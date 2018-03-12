@@ -1,7 +1,11 @@
 (function(){
     angular.module('route.config', [])
-    .config(['$stateProvider', '$urlRouterProvider',  function($stateProvider, $urlRouterProvider){
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
         var routes, setRoutes, baseUrl;
+
+        //to make clean urls, works along with <base> in index.html and .htaccess redirects
+        //$locationProvider.html5Mode(true);
+        //$locationProvider.hashPrefix('');
 
         function childlessRoutes(route) {
             var config, url;

@@ -8,10 +8,11 @@
 
       //exposed functions
       return {
-        setUser : setUser,
-        getUser : getUser,
-        setSession : setSession,
-        getSession : getSession
+        setUserSession : setUserSession,
+        getUserSession : getUserSession,
+
+        setDetails : setDetails,
+        getDetails : getDetails
       }
 
       function saveInCookie(key, value) {
@@ -22,21 +23,27 @@
         return $cookies.get(key);
       }
 
-      function setUser(id) {
-        saveInCookie('ngskeleton_user', id);
-        return id;
-      }
-
-      function getUser() {
-        return readFromCookie('ngskeleton_user');
-      }
-
-      function setSession(id) {
+      function setUserSession(id) {
         saveInCookie('ngskeleton_session', id);
         return id;
       }
-      function getSession() {
+      function getUserSession() {
         return readFromCookie('ngskeleton_session');
+      }
+
+      function setDetails(obj) {
+        saveInCookie('ngskeleton_details', JSON.stringify(obj));
+
+        return obj;
+      }
+      function getDetails() {
+        var raw_value = readFromCookie('ngskeleton_details');
+        if (raw_value !== undefined) {
+          return JSON.parse(raw_value);
+        }
+        else {
+          return undefined;
+        }
       }
   }
 

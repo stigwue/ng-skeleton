@@ -7,7 +7,9 @@
       //exposed functions
       return {
         //request
-        buildRequest : buildRequest
+        buildRequest : buildRequest,
+        //object to parameters for POSTs
+        objectToParams : objectToParams
       }
 
       //via http://stackoverflow.com/a/25570077/3323338
@@ -19,18 +21,43 @@
           return p.join('&');
       };
 
-      function buildRequest(method, url, data)
+      function paramsToObject(params) {
+          //reverse?
+      }
+
+      //user_session token tracker for Iriki APIs, safe to ignore
+      //test if user_session_token is set
+      //set otherwise
+      function token_check(token)
+      {
+        var headers = {};
+
+        if (statusFactory.getUserSession() === undefined) {
+          //we cool, dev knows what he should do
+          //token does not exist, carry on
+          headers.user_session_token = token;
+        } else {
+          //token exists, add to header
+          //add it to the request
+          headers.user_session_token = statusFactory.getUserSession();
+          //headers['Access-Control-Allow-Origin'] = '*';
+        }
+
+        //there are some urls that need no token, still add?
+        //yeah, just checked, we good, it'll be ignored
+        return headers;
+      }
+
+      function buildRequest(method, url, data, token)
       {
           //set the url base here
-          var BASE = 'http://some_api_url/';
+          var BASE = 'http://host/api/';
 
           var request = {
             method: method.toUpperCase(), //POST, GET, etc
             url: BASE + url,
 
-            /*headers: {
-                'Access-Control-Allow-Origin': '*'
-            },*/
+            headers: token_check(token)
           }
 
           //for GET

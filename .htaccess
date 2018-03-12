@@ -1,0 +1,26 @@
+# -FrontPage-
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+<Limit GET POST>
+order deny,allow
+deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+
+Options -MultiViews -Indexes
+
+RewriteEngine On
+
+#the following rewrites are for prettifying angularjs urls
+
+# Don't rewrite files or directories
+#RewriteCond %{REQUEST_FILENAME} -f [OR]
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^ - [L]
+# Rewrite everything else to index.html to allow html5 state links
+#RewriteRule ^ index.html [L]
