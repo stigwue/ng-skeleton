@@ -9,13 +9,13 @@
   "author": "Anthony Egwu, Isah Lata, Stephen Igwue",
   "license": "ISC",
   "dependencies": {
-      "gulp": "latest",
-      "gulp-util": "latest",
-      "gulp-sass": "latest",
-      "gulp-coffee": "latest",
-      "gulp-uglify": "latest",
-      "gulp-concat": "latest",
-      "gulp-connect": "latest",
-      "browser-sync": "latest"
+    "gulp": "latest",
+    "gulp-util": "latest",
+    "gulp-sass": "latest",
+    "gulp-coffee": "latest",
+    "gulp-uglify": "latest",
+    "gulp-concat": "latest",
+    "gulp-connect": "latest",
+    "browser-sync": "latest"
   }
 }

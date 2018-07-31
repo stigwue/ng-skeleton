@@ -1,15 +1,13 @@
 (function () {
     angular.module('http', [])
-    .factory('httpFactory', ['$http', '$timeout', httpFactory])
+    .factory('httpFactory', ['$http', '$timeout', 'statusFactory', httpFactory])
 
-  function httpFactory($http, $timeout){
+  function httpFactory($http, $timeout, statusFactory){
 
       //exposed functions
       return {
         //request
-        buildRequest : buildRequest,
-        //object to parameters for POSTs
-        objectToParams : objectToParams
+        buildRequest : buildRequest
       }
 
       //via http://stackoverflow.com/a/25570077/3323338
@@ -21,11 +19,7 @@
           return p.join('&');
       };
 
-      function paramsToObject(params) {
-          //reverse?
-      }
-
-      //user_session token tracker for Iriki APIs, safe to ignore
+      //user_session token tracker, safe to ignore
       //test if user_session_token is set
       //set otherwise
       function token_check(token)
@@ -48,16 +42,27 @@
         return headers;
       }
 
-      function buildRequest(method, url, data, token)
+      function buildRequest(method, url, data, token, no_base = false)
       {
           //set the url base here
           var BASE = 'http://host/api/';
 
-          var request = {
-            method: method.toUpperCase(), //POST, GET, etc
-            url: BASE + url,
+          var request = {};
 
-            headers: token_check(token)
+          if (no_base) {
+              request = {
+                method: method.toUpperCase(), //POST, GET, etc
+                url: url,
+
+                headers: token_check(token)
+              };
+          } else {
+                request = {
+                    method: method.toUpperCase(), //POST, GET, etc
+                    url: BASE + url,
+
+                    headers: token_check(token)
+                };
           }
 
           //for GET
@@ -65,7 +70,6 @@
           if (method == 'GET') {
               request.params = data;
           }
-
           //for POST
           /*data: {par1 : 'val1'}*/
           //http://stackoverflow.com/questions/19254029/angularjs-http-post-does-not-send-data#20276775

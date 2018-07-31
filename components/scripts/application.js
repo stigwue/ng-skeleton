@@ -8,7 +8,7 @@
         {
           //application information
           $scope.appinfo = {
-              product: 'NG skeleton',
+              product: 'NG Skeleton',
               company: 'School of Hard Code',
               year: '2017 - 2018'
           }
