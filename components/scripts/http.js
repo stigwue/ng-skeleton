@@ -75,8 +75,8 @@
           //http://stackoverflow.com/questions/19254029/angularjs-http-post-does-not-send-data#20276775
           else //if (method == 'POST')
           {
-              request.data = objectToParams(data),
-              request.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+              request.data = objectToParams(data);
+              request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
           }
 
           return request;
