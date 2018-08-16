@@ -10,7 +10,7 @@
           $scope.appinfo = {
               product: 'NG Skeleton',
               company: 'School of Hard Code',
-              year: '2017 - 2018'
+              year: '2017 - ' + (new Date()).getFullYear()
           }
 
         }
