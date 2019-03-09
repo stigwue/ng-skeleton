@@ -21,7 +21,7 @@
 
         //single state routes
         [
-            'home'
+            'single'
         ].forEach(function(route){
             return childlessRoutes(route);
         });
@@ -42,7 +42,7 @@
 
         //routes that have child states
         [
-            'more'
+            'multiple'
         ].forEach(function(route){
             return parentRoutes(route);
         });
@@ -72,15 +72,15 @@
 
 
         [
-            {state:'more.one', url:'',templateUrl:'components/views/more/1.html'},
-            {state:'more.two', url:'/more2',templateUrl:'components/views/more/2.html'},
+            {state:'multiple.one', url:'',templateUrl:'components/views/multiple/1.html'},
+            {state:'multiple.two', url:'/two',templateUrl:'components/views/multiple/2.html'},
 
         ].forEach(function(route){
             return parentchildRoutes(route);
         });
 
-        $urlRouterProvider.when('/', '/home')
-        .otherwise('/home');
+        $urlRouterProvider.when('/', '/single')
+        .otherwise('/single');
 
     }]);
 })();

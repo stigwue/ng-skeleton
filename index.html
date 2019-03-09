@@ -9,28 +9,15 @@
     <link rel="shortcut icon" href="">
     <title>NG Skeleton</title>
 
-    <link href="./assets/css/style.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="assets/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="assets/css/jumbotron.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="assets/css/style.css" rel="stylesheet">
 
     <link href="bower_components/angular-loading-bar/build/loading-bar.min.css" type="text/css" rel="stylesheet">
     <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" type="text/css" rel="stylesheet">
@@ -39,14 +26,13 @@
 </head>
 
 <body ng-app="ngskeleton">
-    <div class="container">
-        <ui-view></ui-view>
+    <ui-view></ui-view>
 
-      <footer class="footer" ng-controller="appController">
-        <p>&copy; {{ appinfo.year }} {{ appinfo.company }}</p>
-      </footer>
+    <hr>
+    <footer class="container" ng-controller="appController">
+        <p>&copy; {{ appinfo.year }} <a ui-sref="home.about">{{ appinfo.company }}</a></p>
 
-    </div> <!-- /container -->
+    </footer>
 
     <!-- Angular -->
     <script src="bower_components/angular/angular.js"></script>
@@ -67,8 +53,13 @@
 
     <script src="scripts/app.js"></script>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="assets/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="assets/vendor/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
   </body>
 </html>
